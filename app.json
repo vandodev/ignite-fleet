@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#202024"
-      }
+      },
+      "package": "com.evandro.ignitefleet"
     },
     "web": {
       "favicon": "./assets/favicon.png"
