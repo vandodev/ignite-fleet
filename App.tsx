@@ -10,7 +10,10 @@ import {
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
+import { ANDROID_CLIENT_ID } from "@env";
+
 export default function App() {
+  console.log(ANDROID_CLIENT_ID);
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
