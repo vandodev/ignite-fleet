@@ -43,6 +43,7 @@ export function SignIn() {
             "Não foi possível conectar-se a sua conta google."
           );
           setIsAuthenticating(false);
+          console.log("oi");
         });
       } else {
         Alert.alert(
