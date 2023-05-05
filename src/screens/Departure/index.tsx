@@ -2,6 +2,7 @@ import { Header } from '../../components/Header';
 import { LicensePlateInput } from '../../components/LicensePlateInput';
 import { Container, Content } from './styles';
 import { TextAreaInput } from '../../components/TextAreaInput';
+import { Button } from '../../components/Button';
 
 export function Departure() {
   return (
@@ -18,6 +19,8 @@ export function Departure() {
           label='Finalizade'
           placeholder='Vou utilizar o veículo para...'
         />
+
+        <Button title='Registrar saida'/>
       </Content>
 
     </Container>
