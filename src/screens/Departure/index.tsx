@@ -10,13 +10,21 @@ import { licensePlateValidate } from '../../utils/licensePlateValidate';
 const keyboardAvoidingViewBehavior = Platform.OS === 'android' ? 'height' : 'position';
 
 export function Departure() {
+  const [description, setDescription] = useState('');
   const [licensePlate, setLicensePlate] = useState('');
+
   const licensePlateRef = useRef<TextInput>(null);
+  const descriptionRef = useRef<TextInput>(null);
 
     function handleDepartureRegister() {
     if(!licensePlateValidate(licensePlate)) {
       licensePlateRef.current?.focus();
       return Alert.alert('Placa inválida', 'A placa é inválida. Por favor, informa a placa correta.')
+    }
+
+    if(description.trim().length === 0) {
+      descriptionRef.current?.focus();
+      return Alert.alert('Finalidade', 'Por favor, informe a finalidade da utilização do veículo')
     }
   }
 
@@ -36,6 +44,7 @@ export function Departure() {
             />
 
             <TextAreaInput
+              onChangeText={setDescription}
               label='Finalizade'
               placeholder='Vou utilizar o veículo para...'
               onSubmitEditing={handleDepartureRegister}
