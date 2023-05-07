@@ -11,9 +11,11 @@ const keyboardAvoidingViewBehavior = Platform.OS === 'android' ? 'height' : 'pos
 
 export function Departure() {
   const [licensePlate, setLicensePlate] = useState('');
+  const licensePlateRef = useRef<TextInput>(null);
 
     function handleDepartureRegister() {
     if(!licensePlateValidate(licensePlate)) {
+      licensePlateRef.current?.focus();
       return Alert.alert('Placa inválida', 'A placa é inválida. Por favor, informa a placa correta.')
     }
   }
@@ -26,6 +28,7 @@ export function Departure() {
         <ScrollView>
           <Content>
             <LicensePlateInput
+              ref={licensePlateRef}
               label='Placa do veículo'
               placeholder="BRA1234"
               returnKeyType='next'
