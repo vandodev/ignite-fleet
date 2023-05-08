@@ -1,3 +1,4 @@
+import 'react-native-get-random-values';
 import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import { SignIn } from "./src/screens/SignIn";
