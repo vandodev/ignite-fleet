@@ -6,6 +6,7 @@ import { Historic } from '../../libs/realm/schemas/Historic';
 import { CarStatus } from "../../components/CarStatus";
 import { HomeHeader } from "../../components/HomeHeader";
 import { Container, Content } from "./styles";
+import { HistoricCard } from '../../components/HistoricCard';
 
 export function Home() {
   const { navigate } = useNavigation();
@@ -56,6 +57,7 @@ export function Home() {
       <Content>
        {/* <CarStatus licensePlate="XXX-1234" /> */}
        <CarStatus licensePlate={vehicleInUse?.license_plate} onPress={handleRegisterMoviment} />
+       <HistoricCard data={{ created: '20/04', licensePlate: 'XXX1234', isSync: false }} />
       </Content>
     </Container>
   );
