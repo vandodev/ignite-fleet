@@ -12,6 +12,7 @@
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
     "@realm/react": "^0.4.3",
+    "dayjs": "^1.11.10",
     "expo": "~48.0.18",
     "expo-auth-session": "~4.0.3",
     "expo-crypto": "~12.2.1",
