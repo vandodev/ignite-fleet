@@ -8,7 +8,7 @@ import { Loading } from "./src/components/Loading";
 import { Routes } from './src/routes';
 
 import { AppProvider, UserProvider } from "@realm/react";
-import { RealmProvider } from './src/libs/realm';
+import { RealmProvider, syncConfig } from './src/libs/realm'; 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import {
@@ -41,7 +41,7 @@ export default function App() {
             translucent 
           />
           <UserProvider fallback={SignIn}>
-            <RealmProvider>
+            <RealmProvider sync={syncConfig} fallback={Loading}>
               <Routes />
             </RealmProvider>
           </UserProvider>
