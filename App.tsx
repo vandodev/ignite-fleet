@@ -12,6 +12,7 @@ import { RealmProvider, syncConfig } from './src/libs/realm';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TopMessage } from './src/components/TopMessage';
 import { WifiSlash } from 'phosphor-react-native';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 import {
   useFonts,
@@ -24,6 +25,9 @@ import { REALM_APP_ID } from "@env";
 import { ANDROID_CLIENT_ID } from "@env";
 
 export default function App() {
+
+  const netInfo = useNetInfo();
+
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
@@ -38,10 +42,13 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <SafeAreaProvider style={{ backgroundColor: theme.COLORS.GRAY_800 }}>
 
-        <TopMessage 
-            title='Você está off-line'
-            icon={WifiSlash}
-          />
+          {
+              !netInfo.isConnected &&
+              <TopMessage 
+                title='Você está off-line'
+                icon={WifiSlash}
+              />
+          }
 
           <StatusBar 
             barStyle="light-content" 
