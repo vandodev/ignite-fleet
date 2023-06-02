@@ -10,6 +10,7 @@ import { HistoricCard, HistoricCardProps  } from '../../components/HistoricCard'
 import { getLastAsyncTimestamp, saveLastSyncTimestamp } from '../../libs/asyncStorage/syncStorage';
 import dayjs from 'dayjs';
 import { useUser } from '@realm/react';
+import Toast from 'react-native-toast-message';
 
 export function Home() {
   const { navigate } = useNavigation();
@@ -57,6 +58,12 @@ export function Home() {
     if(percentage === 100) {
       await saveLastSyncTimestamp();
       await fetchHistoric();
+
+      Toast.show({
+        type: 'info',
+        text1: 'Todos os dados estão sincronizado.'
+      })
+      
     }
   }
 
