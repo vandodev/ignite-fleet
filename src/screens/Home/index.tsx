@@ -11,6 +11,8 @@ import { getLastAsyncTimestamp, saveLastSyncTimestamp } from '../../libs/asyncSt
 import dayjs from 'dayjs';
 import { useUser } from '@realm/react';
 import Toast from 'react-native-toast-message';
+import { TopMessage } from '../../components/TopMessage';
+import { CloudArrowUp } from 'phosphor-react-native';
 
 export function Home() {
   const { navigate } = useNavigation();
@@ -19,6 +21,7 @@ export function Home() {
   const user = useUser();
   const [vehicleInUse, setVehicleInUse] = useState<Historic | null>(null);
   const [vehicleHistoric, setVehicleHistoric] = useState<HistoricCardProps[]>([]);
+  const [percetageToSync, setPercentageToSync] = useState<string | null>(null);
 
   function handleRegisterMoviment() {
     if(vehicleInUse?._id) {
@@ -58,12 +61,18 @@ export function Home() {
     if(percentage === 100) {
       await saveLastSyncTimestamp();
       await fetchHistoric();
+      setPercentageToSync(null);
+
 
       Toast.show({
         type: 'info',
         text1: 'Todos os dados estão sincronizado.'
       })
       
+    }
+
+    if(percentage < 100) {
+      setPercentageToSync(`${percentage.toFixed(0)}% sincronizado.`)
     }
   }
 
@@ -124,6 +133,9 @@ export function Home() {
 
   return (
     <Container>
+      {
+        percetageToSync && <TopMessage title={percetageToSync} icon={CloudArrowUp} />
+      }
       <HomeHeader />
       <Content>
        {/* <CarStatus licensePlate="XXX-1234" /> */}
