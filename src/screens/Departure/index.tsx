@@ -9,7 +9,7 @@ import { Button } from '../../components/Button';
 import { licensePlateValidate } from '../../utils/licensePlateValidate';
 
 import { useNavigation } from '@react-navigation/native';
-import { useForegroundPermissions } from 'expo-location'
+import { useForegroundPermissions, watchPositionAsync, LocationAccuracy,LocationSubscription} from 'expo-location'
 import { useUser } from '@realm/react';
 
 import { useRealm } from '../../libs/realm';
@@ -66,6 +66,23 @@ export function Departure() {
     useEffect(() => {
       requestLocationForegroundPermission();
     }, [])
+
+    useEffect(() => {
+      if(!locationForegroundPermission?.granted){
+        return
+      } 
+
+      let subscription: LocationSubscription;
+
+      watchPositionAsync({
+        accuracy: LocationAccuracy.High,
+        timeInterval: 1000
+      }, (location) => {
+        console.log(location)
+    }).then(response => subscription = response);
+
+    return () => subscription.remove();
+  }, [locationForegroundPermission?.granted])
   
     if(!locationForegroundPermission?.granted) {
       return (
