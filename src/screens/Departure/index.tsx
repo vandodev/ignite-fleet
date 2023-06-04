@@ -15,6 +15,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useForegroundPermissions, watchPositionAsync, LocationAccuracy,LocationSubscription} from 'expo-location'
 import { useUser } from '@realm/react';
 
+import { CarSimple } from 'phosphor-react-native';
+
 import { useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
 
@@ -125,6 +127,7 @@ export function Departure() {
           {
               currentAddress &&
               <LocationInfo
+                icon={CarSimple}
                 label='Localização atual'
                 description={currentAddress}
               />
