@@ -7,6 +7,7 @@ import { Container, Content, Message } from './styles';
 import { TextAreaInput } from '../../components/TextAreaInput';
 import { Button } from '../../components/Button';
 import { licensePlateValidate } from '../../utils/licensePlateValidate';
+import { getAddressLocation } from '../../utils/getAddressLocation';
 
 import { useNavigation } from '@react-navigation/native';
 import { useForegroundPermissions, watchPositionAsync, LocationAccuracy,LocationSubscription} from 'expo-location'
@@ -78,7 +79,10 @@ export function Departure() {
         accuracy: LocationAccuracy.High,
         timeInterval: 1000
       }, (location) => {
-        console.log(location)
+        getAddressLocation(location.coords)
+        .then(address => {
+          console.log(address)
+        })
     }).then(response => subscription = response);
 
     return () => subscription.remove();
