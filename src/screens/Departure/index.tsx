@@ -8,6 +8,7 @@ import { TextAreaInput } from '../../components/TextAreaInput';
 import { Button } from '../../components/Button';
 import { licensePlateValidate } from '../../utils/licensePlateValidate';
 import { getAddressLocation } from '../../utils/getAddressLocation';
+import { Loading } from '../../components/Loading';
 
 import { useNavigation } from '@react-navigation/native';
 import { useForegroundPermissions, watchPositionAsync, LocationAccuracy,LocationSubscription} from 'expo-location'
@@ -27,6 +28,7 @@ export function Departure() {
   const [isRegistering, setIsResgistering] = useState(false);
 
   const [locationForegroundPermission, requestLocationForegroundPermission] = useForegroundPermissions();
+  const [isLoadingLocation, setIsLoadingLocation] = useState(true);
 
   const realm = useRealm();
   const user = useUser();
@@ -82,10 +84,14 @@ export function Departure() {
         getAddressLocation(location.coords)
         .then(address => {
           console.log(address)
-        })
+        }).finally(() => setIsLoadingLocation(false))
     }).then(response => subscription = response);
 
-    return () => subscription.remove();
+    return () => {
+      if(subscription) {
+        subscription.remove()
+      }
+    };
   }, [locationForegroundPermission?.granted])
   
     if(!locationForegroundPermission?.granted) {
@@ -99,6 +105,10 @@ export function Departure() {
           </Message>
         </Container>
       )
+    }
+
+    if(isLoadingLocation) {
+      return <Loading />
     }
 
   return (
