@@ -51,6 +51,10 @@ export function Departure() {
           descriptionRef.current?.focus();
           return Alert.alert('Finalidade', 'Por favor, informe a finalidade da utilização do veículo')
         }
+
+        if(!currentCoords?.latitude && !currentCoords?.longitude) {
+          return Alert.alert('Localização', 'Não foi possível obter a localização atual. Tente novamente.')
+        }
   
         setIsResgistering(false);
   
