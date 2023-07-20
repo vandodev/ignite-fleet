@@ -23,6 +23,10 @@ module.exports = {
       // "config": {
       //   "googleMapsApiKey": process.env.GOOGLE_MAPS_API_KEY
       // }
+      // ,
+      // "infoPlist": {
+      //   "UIBackgroundModes": ["location"]
+      // }
     },
     "android": {
       "adaptiveIcon": {
@@ -30,6 +34,11 @@ module.exports = {
         "backgroundColor": "#202024"
       },
       "package": "com.evandro.ignitefleet",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ],
       "config": {
         "googleMaps": {
           "apiKey": process.env.GOOGLE_MAPS_API_KEY
