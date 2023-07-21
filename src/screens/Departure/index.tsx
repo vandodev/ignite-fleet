@@ -23,6 +23,8 @@ import {
   } from 'expo-location'
 import { useUser } from '@realm/react';
 
+import { startLocationTask } from '../../tasks/backgroundLocationTask';
+
 import { CarSimple } from 'phosphor-react-native';
 
 import { useRealm } from '../../libs/realm';
@@ -71,6 +73,8 @@ export function Departure() {
           setIsResgistering(false)
           return Alert.alert('Localização', 'É necessário permitir que o App tenha acesso localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo."')
         }
+
+        await startLocationTask();
     
         realm.write(() => {
           realm.create('Historic', Historic.generate({
