@@ -15,7 +15,8 @@ import { getLastAsyncTimestamp } from '../../libs/asyncStorage/syncStorage';
 import { getStorageLocations } from '../../libs/asyncStorage/locationStorage';
 
 import { stopLocationTask } from '../../tasks/backgroundLocationTask';
-
+import { LatLng } from 'react-native-maps';
+import { Map } from '../../components/Map';
 
 type RouteParamProps = {
   id: string;
@@ -26,6 +27,7 @@ export function Arrival() {
   const { id } = route.params as RouteParamProps;
   const historic = useObject(Historic, new BSON.UUID(id));
   const [dataNotSynced, setDataNotSynced] = useState(false);
+  const [coordinates, setCoordinates] = useState<LatLng[]>([])
 
   const realm = useRealm();
   const { goBack } = useNavigation();
@@ -79,7 +81,8 @@ export function Arrival() {
     setDataNotSynced(updatedAt > lastSync);
 
     const locationsStorage = await getStorageLocations();
-    console.log("STORANGE -> ", locationsStorage)
+    // console.log("STORANGE -> ", locationsStorage)
+    setCoordinates(locationsStorage)
   }
 
   useEffect(() => {
@@ -90,6 +93,11 @@ export function Arrival() {
   return (
   < Container>
       <Header title={title} />
+
+      {coordinates.length > 0 && (
+        <Map coordinates={coordinates} />
+      )}
+
       <Content>
         <Label>
           Placa do veículo
