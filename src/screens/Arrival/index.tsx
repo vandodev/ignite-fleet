@@ -18,6 +18,8 @@ import { stopLocationTask } from '../../tasks/backgroundLocationTask';
 import { LatLng } from 'react-native-maps';
 import { Map } from '../../components/Map';
 
+import { Locations } from '../../components/Locations';
+
 type RouteParamProps = {
   id: string;
 }
@@ -113,6 +115,12 @@ export function Arrival() {
       )}
 
       <Content>
+
+        <Locations 
+          departure={{ label: 'Saída', description: 'Saída teste' }}
+          arrival={{ label: 'Chegada', description: 'Chegada teste' }}
+        />
+
         <Label>
           Placa do veículo
         </Label>
