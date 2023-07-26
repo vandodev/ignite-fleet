@@ -19,6 +19,9 @@ import { LatLng } from 'react-native-maps';
 import { Map } from '../../components/Map';
 
 import { Locations } from '../../components/Locations';
+import { getAddressLocation } from '../../utils/getAddressLocation';
+import { LocationInfoProps } from '../../components/LocationInfo';
+import dayjs from 'dayjs';
 
 type RouteParamProps = {
   id: string;
@@ -29,7 +32,10 @@ export function Arrival() {
   const { id } = route.params as RouteParamProps;
   const historic = useObject(Historic, new BSON.UUID(id));
   const [dataNotSynced, setDataNotSynced] = useState(false);
-  const [coordinates, setCoordinates] = useState<LatLng[]>([])
+  const [coordinates, setCoordinates] = useState<LatLng[]>([]);
+
+  const [departure, setDeparture] = useState<LocationInfoProps>({} as LocationInfoProps)
+  const [arrival, setArrival] = useState<LocationInfoProps | null>(null)
 
   const realm = useRealm();
   const { goBack } = useNavigation();
@@ -99,6 +105,25 @@ export function Arrival() {
       setCoordinates(historic?.coords ?? []);
     }
 
+    if(historic?.coords[0]) {
+      const departureStreetName = await getAddressLocation(historic?.coords[0])
+
+      setDeparture({
+        label: `Saíndo em ${departureStreetName ?? ''}`,
+        description: dayjs(new Date(historic?.coords[0].timestamp)).format('DD/MM/YYYY [às] HH:mm')
+      })
+    }
+
+    if(historic?.status === 'arrival') {
+      const lastLocation = historic.coords[historic.coords.length - 1];
+      const arrivalStreetName = await getAddressLocation(lastLocation)
+
+      setArrival({
+        label: `Chegando em ${arrivalStreetName ?? ''}`,
+        description: dayjs(new Date(lastLocation.timestamp)).format('DD/MM/YYYY [às] HH:mm')
+      })
+    }
+
   }
 
   useEffect(() => {
@@ -117,8 +142,8 @@ export function Arrival() {
       <Content>
 
         <Locations 
-          departure={{ label: 'Saída', description: 'Saída teste' }}
-          arrival={{ label: 'Chegada', description: 'Chegada teste' }}
+          departure={departure}
+          arrival={arrival}
         />
 
         <Label>
