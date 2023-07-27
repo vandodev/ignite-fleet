@@ -7,6 +7,7 @@ import { Header } from '../../components/Header';
 import { Button } from '../../components/Button';
 import { ButtonIcon } from '../../components/ButtonIcon';
 import { X } from 'phosphor-react-native';
+import { Loading } from '../../components/Loading';
 
 import { useObject, useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
@@ -33,6 +34,7 @@ export function Arrival() {
   const historic = useObject(Historic, new BSON.UUID(id));
   const [dataNotSynced, setDataNotSynced] = useState(false);
   const [coordinates, setCoordinates] = useState<LatLng[]>([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   const [departure, setDeparture] = useState<LocationInfoProps>({} as LocationInfoProps)
   const [arrival, setArrival] = useState<LocationInfoProps | null>(null)
@@ -124,6 +126,8 @@ export function Arrival() {
       })
     }
 
+    setIsLoading(false)
+
   }
 
   useEffect(() => {
@@ -131,7 +135,11 @@ export function Arrival() {
   },[historic])
 
 
-  return (
+  if(isLoading) {
+    return <Loading />
+  }
+
+return (
   < Container>
       <Header title={title} />
 
