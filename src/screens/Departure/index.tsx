@@ -3,14 +3,15 @@ import { TextInput, ScrollView, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Header } from '../../components/Header';
 import { LicensePlateInput } from '../../components/LicensePlateInput';
-import { Container, Content, Message } from './styles';
+import { Container, Content, Message, MessageContent  } from './styles';
 import { TextAreaInput } from '../../components/TextAreaInput';
 import { Button } from '../../components/Button';
 import { licensePlateValidate } from '../../utils/licensePlateValidate';
 import { getAddressLocation } from '../../utils/getAddressLocation';
 import { Loading } from '../../components/Loading';
 import { LocationInfo } from '../../components/LocationInfo';
-import { Map } from '../../components/Map'
+import { Map } from '../../components/Map';
+import { openSettings } from '../../utils/openSettings';
 
 import { useNavigation } from '@react-navigation/native';
 import { 
@@ -132,13 +133,19 @@ export function Departure() {
   
     if(!locationForegroundPermission?.granted) {
       return (
-        <Container>
-          <Header title='Saída' />
-          <Message>
-            Você precisa permitir que o aplicativo tenha acesso a 
-            localização para acessar essa funcionalidade. Por favor, acesse as
-            configurações do seu dispositivo para conceder a permissão ao aplicativo.
-          </Message>
+          <Container>
+            <Header title='Saída' />
+
+            <MessageContent>
+              <Message>
+                Você precisa permitir que o aplicativo tenha acesso a 
+                localização para acessar essa funcionalidade. Por favor, acesse as
+                configurações do seu dispositivo para conceder a permissão ao aplicativo.
+              </Message>
+
+              <Button title='Abrir configurações' onPress={openSettings} />
+          </MessageContent>
+          
         </Container>
       )
     }
