@@ -56,7 +56,12 @@ module.exports = {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e24a1faf-0257-4ac7-8274-18a800b9b5a9"
+      }
+    }
   
   }
 }

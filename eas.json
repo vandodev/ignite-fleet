@@ -1,0 +1,42 @@
+{
+  "cli": {
+    "version": ">= 5.4.0"
+  },
+  "build": {
+    "development": {
+      "distribution": "internal",
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
+      }
+    },
+    "preview": {
+      "distribution": "internal"      ,
+      "android": {
+        "buildType": "apk"
+      },    
+      "env": {
+        "REALM_APP_ID": "application-0-rdenw",
+        "ANDROID_CLIENT_ID": "540342833992-8ed5nmmiqsofbim2ugl5iv5kfifm7j8h.apps.googleusercontent.com",
+        "GOOGLE_MAPS_API_KEY":"AIzaSyCUy0v48w05IWqXlqF2UHKpRP6QsBymhHQ"
+      }
+    },
+    "production": {
+      "distribution": "internal"      ,
+      "android": {
+        "buildType": "apk"
+      },    
+      "env": {
+        "REALM_APP_ID": "application-0-rdenw",
+        "ANDROID_CLIENT_ID": "",
+        "GOOGLE_MAPS_API_KEY":""
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
+
